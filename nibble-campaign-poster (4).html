@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>$NIBBLE Creator Campaign</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; min-height: 100vh; font-family: 'Outfit', sans-serif; background: #05010f; display: flex; justify-content: center; }
+  .poster {
+    width: 100%; max-width: 900px; min-height: 100vh; position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at 20% 10%, #3a1060 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, #7c2d00 0%, transparent 45%),
+                radial-gradient(ellipse at 50% 60%, #1a0540 0%, transparent 60%),
+                radial-gradient(ellipse at 10% 80%, #4a0080 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 85%, #6b2000 0%, transparent 40%),
+                #060010;
+  }
+  .stars {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 25% 8%, rgba(255,200,100,0.8) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 40% 22%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 55% 5%, rgba(255,255,255,0.9) 0%, transparent 100%),
+      radial-gradient(1px 1px at 70% 18%, rgba(255,150,50,0.7) 0%, transparent 100%),
+      radial-gradient(2px 2px at 85% 10%, rgba(255,255,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 92% 30%, rgba(200,100,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 5% 45%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 15% 60%, rgba(255,200,50,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 62% 42%, rgba(255,255,255,0.8) 0%, transparent 100%),
+      radial-gradient(1px 1px at 78% 55%, rgba(180,80,255,0.7) 0%, transparent 100%),
+      radial-gradient(2px 2px at 88% 48%, rgba(255,255,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 20% 80%, rgba(255,140,0,0.6) 0%, transparent 100%),
+      radial-gradient(1.5px 1.5px at 65% 75%, rgba(255,255,255,0.7) 0%, transparent 100%),
+      radial-gradient(1px 1px at 80% 88%, rgba(200,100,255,0.6) 0%, transparent 100%),
+      radial-gradient(1px 1px at 95% 72%, rgba(255,255,255,0.7) 0%, transparent 100%);
+  }
+  .nebula { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15; }
+  .nebula-1 { width: 500px; height: 400px; background: #a855f7; top: -100px; left: -100px; }
+  .nebula-2 { width: 400px; height: 350px; background: #f97316; top: 50px; right: -80px; }
+  .nebula-3 { width: 600px; height: 300px; background: #7c3aed; top: 400px; left: 50%; transform: translateX(-50%); }
+  .nebula-4 { width: 350px; height: 350px; background: #eab308; bottom: 200px; right: -50px; }
+  .nebula-5 { width: 400px; height: 300px; background: #9333ea; bottom: 100px; left: -80px; }
+  .orbit-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(255,200,80,0.08); }
+  .orbit-1 { width: 700px; height: 700px; top: -300px; right: -200px; }
+  .orbit-2 { width: 500px; height: 500px; top: -200px; right: -100px; border-color: rgba(180,80,255,0.07); }
+  .particle { position: absolute; border-radius: 50%; opacity: 0.4; }
+  .p1 { width: 3px; height: 3px; background: #facc15; top: 180px; left: 80px; }
+  .p2 { width: 2px; height: 2px; background: #a855f7; top: 300px; right: 120px; }
+  .p3 { width: 4px; height: 4px; background: #f97316; top: 500px; left: 45px; opacity: 0.3; }
+  .p4 { width: 2px; height: 2px; background: #facc15; bottom: 300px; right: 60px; }
+  .p5 { width: 3px; height: 3px; background: #a855f7; bottom: 180px; left: 130px; }
+
+  .content { position: relative; z-index: 10; padding: clamp(24px, 5%, 52px) clamp(20px, 7%, 60px) 50px; display: flex; flex-direction: column; }
+
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+  .community-tag { font-size: 11px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,200,80,0.7); }
+  .live-badge { display: flex; align-items: center; gap: 7px; background: rgba(255,80,80,0.12); border: 1px solid rgba(255,80,80,0.3); border-radius: 20px; padding: 5px 14px; font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #ff6b6b; text-transform: uppercase; }
+  .live-dot { width: 7px; height: 7px; background: #ff4444; border-radius: 50%; animation: pulse 1.5s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.7)} }
+
+  .hero { text-align: center; margin-bottom: 30px; }
+  .coin-symbol { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 13vw, 120px); line-height: 0.9; letter-spacing: 2px; background: linear-gradient(135deg, #facc15 0%, #f97316 35%, #a855f7 70%, #facc15 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; filter: drop-shadow(0 0 40px rgba(249,115,22,0.4)); }
+  .hero-sub { font-size: 15px; font-weight: 400; color: rgba(255,255,255,0.5); letter-spacing: 6px; text-transform: uppercase; margin-top: 6px; }
+
+  .countdown-section { margin-bottom: 32px; text-align: center; }
+  .countdown-label { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,80,80,0.6); margin-bottom: 14px; }
+  .countdown-boxes { display: flex; justify-content: center; align-items: center; gap: 10px; }
+  .countdown-unit { display: flex; flex-direction: column; align-items: center; background: rgba(255,80,80,0.07); border: 1px solid rgba(255,80,80,0.2); border-radius: 12px; padding: clamp(8px,2vw,14px) clamp(12px,2.5vw,20px) 10px; min-width: clamp(55px,8vw,80px); }
+  .countdown-num { font-family: 'Bebas Neue', sans-serif; font-size: clamp(28px,5vw,46px); line-height: 1; color: #ff6b6b; filter: drop-shadow(0 0 12px rgba(255,80,80,0.3)); }
+  .countdown-unit-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,107,107,0.5); margin-top: 4px; }
+  .countdown-sep { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: rgba(255,80,80,0.3); margin-bottom: 18px; }
+  .countdown-ended { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: #ff6b6b; letter-spacing: 2px; }
+
+  .headline-block { text-align: center; margin-bottom: 36px; }
+  .headline { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 7vw, 64px); line-height: 1; color: #fff; letter-spacing: 1px; }
+  .headline span.accent { background: linear-gradient(90deg, #facc15, #f97316); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .headline-desc { margin-top: 12px; font-size: 16px; color: rgba(255,255,255,0.55); font-weight: 300; max-width: 520px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+  .glow-line { width: 180px; height: 3px; background: linear-gradient(90deg, transparent, #a855f7, #f97316, transparent); margin: 0 auto 16px; border-radius: 2px; }
+
+  .prize-section { margin-bottom: 38px; }
+  .section-label { font-size: 10px; font-weight: 700; letter-spacing: 4px; text-transform: uppercase; color: rgba(255,200,80,0.5); text-align: center; margin-bottom: 18px; }
+  .prizes { display: flex; gap: 14px; align-items: flex-end; justify-content: center; flex-wrap: wrap; }
+  .prize-card { border-radius: 16px; text-align: center; position: relative; overflow: hidden; }
+  .prize-2 { flex: 1; padding: 20px 16px 18px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1); min-width: 120px; max-width: 200px; }
+  .prize-1 { flex: 1.3; padding: 26px 20px 22px; background: linear-gradient(145deg, rgba(250,204,21,0.1), rgba(249,115,22,0.08)); border: 1px solid rgba(250,204,21,0.35); min-width: 150px; max-width: 260px; }
+  .prize-1::after { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 50% 0%, rgba(250,204,21,0.12) 0%, transparent 70%); border-radius:16px; pointer-events:none; }
+  .prize-3 { flex: 0.9; padding: 16px 14px 14px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); min-width: 100px; max-width: 175px; }
+  .prize-rank { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 8px; }
+  .prize-1 .prize-rank { color: #facc15; }
+  .prize-2 .prize-rank { color: rgba(255,255,255,0.5); }
+  .prize-3 .prize-rank { color: rgba(255,255,255,0.35); }
+  .prize-crown { font-size: 28px; margin-bottom: 6px; }
+  .prize-amount { font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+  .prize-1 .prize-amount { font-size: clamp(40px,6vw,62px); color: #facc15; line-height: 1; filter: drop-shadow(0 0 20px rgba(250,204,21,0.4)); }
+  .prize-2 .prize-amount { font-size: clamp(30px,4.5vw,46px); color: rgba(255,255,255,0.75); line-height: 1; }
+  .prize-3 .prize-amount { font-size: clamp(26px,4vw,38px); color: rgba(255,255,255,0.5); line-height: 1; }
+  .prize-currency { font-size: 11px; font-weight: 600; letter-spacing: 2px; margin-top: 4px; }
+  .prize-1 .prize-currency { color: rgba(250,204,21,0.7); }
+  .prize-2 .prize-currency { color: rgba(255,255,255,0.35); }
+  .prize-3 .prize-currency { color: rgba(255,255,255,0.25); }
+  .hot-tag { position:absolute; top:-1px; left:50%; transform:translateX(-50%); background:linear-gradient(90deg,#facc15,#f97316); color:#000; font-size:9px; font-weight:900; letter-spacing:2px; text-transform:uppercase; padding:4px 14px; border-radius:0 0 10px 10px; white-space:nowrap; }
+  .winner-criteria { display: flex; align-items: center; justify-content: center; gap: 10px; background: linear-gradient(135deg, rgba(250,204,21,0.08), rgba(249,115,22,0.06)); border: 1px solid rgba(250,204,21,0.2); border-radius: 10px; padding: 10px 24px; margin-top: 18px; max-width: 420px; margin-left: auto; margin-right: auto; }
+  .winner-criteria span { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .winner-criteria strong { color: #facc15; }
+
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(168,85,247,0.3), rgba(249,115,22,0.3), transparent); margin: 0 0 36px; }
+
+  .how-section { margin-bottom: 36px; }
+  .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+  .step { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 22px 20px; }
+  .step-number { font-family: 'Bebas Neue', sans-serif; font-size: 42px; line-height: 1; background: linear-gradient(135deg, #f97316, #a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom: 10px; opacity: 0.6; }
+  .step-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+  .step-desc { font-size: 11.5px; color: rgba(255,255,255,0.45); line-height: 1.6; font-weight: 300; }
+  .step-highlight { color: #facc15; font-weight: 600; }
+
+  .rules-strip { background: rgba(168,85,247,0.06); border: 1px solid rgba(168,85,247,0.2); border-radius: 14px; padding: 20px 28px; margin-bottom: 32px; display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+  .rule-item { display: flex; align-items: center; gap: 10px; flex: 1 1 180px; }
+  .rule-text { font-size: 12px; color: rgba(255,255,255,0.6); }
+  .rule-text strong { color: rgba(255,255,255,0.9); font-weight: 700; }
+
+  .cta-block { text-align: center; margin-bottom: 28px; }
+  .cta-hashtag { font-size: 14px; font-weight: 600; letter-spacing: 3px; color: rgba(255,200,80,0.6); text-transform: uppercase; margin-bottom: 16px; }
+  .submit-btn { display: inline-flex; align-items: center; gap: 12px; background: linear-gradient(135deg, #facc15, #f97316); color: #000; font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 900; letter-spacing: 2px; padding: 16px 48px; border-radius: 50px; text-transform: uppercase; border: none; cursor: pointer; box-shadow: 0 0 50px rgba(249,115,22,0.35), 0 0 100px rgba(249,115,22,0.1); transition: transform 0.15s, box-shadow 0.15s; }
+  .submit-btn:hover { transform: scale(1.03); box-shadow: 0 0 70px rgba(249,115,22,0.5); }
+  .submit-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+  .cta-sub { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.35); letter-spacing: 1px; }
+
+  .bottom-bar { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.06); flex-wrap: wrap; gap: 16px; }
+  .deadline-block { display: flex; flex-direction: column; gap: 3px; }
+  .deadline-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.3); font-weight: 600; }
+  .deadline-value { font-size: 14px; font-weight: 700; color: #f97316; }
+  .spots-left { background: rgba(255,80,80,0.08); border: 1px solid rgba(255,80,80,0.2); border-radius: 8px; padding: 8px 18px; text-align: center; }
+  .spots-num { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: #ff6b6b; line-height: 1; }
+  .spots-label { font-size: 9px; color: rgba(255,107,107,0.6); letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+  .social-handle { font-size: 13px; color: rgba(255,255,255,0.3); font-weight: 300; letter-spacing: 1px; }
+  .social-handle strong { color: rgba(255,255,255,0.7); font-weight: 700; }
+
+  /* MODAL */
+  .modal-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); justify-content: center; align-items: center; }
+  .modal-overlay.active { display: flex; }
+  .modal { background: #0d0520; border: 1px solid rgba(168,85,247,0.3); border-radius: 24px; padding: 44px 48px; width: 580px; max-width: 95vw; position: relative; box-shadow: 0 0 80px rgba(168,85,247,0.15); max-height: 90vh; overflow-y: auto; }
+  .modal::before { content:''; position:absolute; inset:0; border-radius:24px; background: radial-gradient(ellipse at 50% 0%, rgba(168,85,247,0.08) 0%, transparent 60%); pointer-events:none; }
+  .modal-close { position:absolute; top:18px; right:22px; background:none; border:none; color:rgba(255,255,255,0.3); font-size:22px; cursor:pointer; transition:color 0.15s; z-index:1; }
+  .modal-close:hover { color:rgba(255,255,255,0.8); }
+  .modal-logo { font-family:'Bebas Neue',sans-serif; font-size:36px; letter-spacing:2px; background:linear-gradient(135deg,#facc15,#f97316,#a855f7); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:4px; }
+  .modal-title { font-size:22px; font-weight:700; color:#fff; margin-bottom:6px; }
+  .modal-sub { font-size:13px; color:rgba(255,255,255,0.45); margin-bottom:32px; line-height:1.5; }
+  .form-group { margin-bottom:20px; }
+  .form-label { display:block; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:rgba(255,200,80,0.7); margin-bottom:8px; }
+  .form-input, .form-textarea { width:100%; background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.1); border-radius:10px; padding:13px 16px; color:#fff; font-family:'Outfit',sans-serif; font-size:14px; outline:none; transition:border-color 0.15s, box-shadow 0.15s; }
+  .form-input:focus,.form-textarea:focus { border-color:rgba(168,85,247,0.5); box-shadow:0 0 0 3px rgba(168,85,247,0.08); }
+  .form-input::placeholder,.form-textarea::placeholder { color:rgba(255,255,255,0.2); }
+  .form-textarea { min-height:110px; resize:vertical; line-height:1.6; }
+  .form-hint { margin-top:6px; font-size:11px; color:rgba(255,255,255,0.25); }
+  .form-submit { width:100%; background:linear-gradient(135deg,#facc15,#f97316); color:#000; font-family:'Outfit',sans-serif; font-size:15px; font-weight:900; letter-spacing:2px; padding:15px; border-radius:12px; text-transform:uppercase; border:none; cursor:pointer; box-shadow:0 0 30px rgba(249,115,22,0.25); transition:transform 0.15s, box-shadow 0.15s; margin-top:8px; }
+  .form-submit:hover { transform:scale(1.02); box-shadow:0 0 50px rgba(249,115,22,0.4); }
+  .form-submit:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+  .modal-divider { height:1px; background:rgba(255,255,255,0.07); margin:24px 0; }
+  .error-msg { font-size:12px; color:#ff6b6b; margin-top:8px; display:none; padding: 10px 14px; background: rgba(255,80,80,0.08); border-radius: 8px; border: 1px solid rgba(255,80,80,0.2); }
+  .success-state { display:none; text-align:center; padding:20px 0; }
+  .success-icon { font-size:52px; margin-bottom:16px; }
+  .success-title { font-family:'Bebas Neue',sans-serif; font-size:36px; color:#facc15; letter-spacing:1px; margin-bottom:8px; }
+  .success-text { font-size:14px; color:rgba(255,255,255,0.5); line-height:1.6; }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="stars"></div>
+  <div class="nebula nebula-1"></div><div class="nebula nebula-2"></div>
+  <div class="nebula nebula-3"></div><div class="nebula nebula-4"></div><div class="nebula nebula-5"></div>
+  <div class="orbit-ring orbit-1"></div><div class="orbit-ring orbit-2"></div>
+  <div class="particle p1"></div><div class="particle p2"></div>
+  <div class="particle p3"></div><div class="particle p4"></div><div class="particle p5"></div>
+
+  <div class="content">
+    <div class="top-bar">
+      <div class="community-tag">NibbleNation</div>
+      <div class="live-badge"><div class="live-dot"></div>Campaign Live</div>
+    </div>
+
+    <div class="hero">
+      <div class="coin-symbol">$NIBBLE</div>
+      <div class="hero-sub">Creator Campaign</div>
+    </div>
+
+    <div class="countdown-section">
+      <div class="countdown-label">⏳ Campaign Ends In</div>
+      <div class="countdown-boxes">
+        <div class="countdown-unit"><div class="countdown-num" id="cd-days">30</div><div class="countdown-unit-label">Days</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-num" id="cd-hours">00</div><div class="countdown-unit-label">Hours</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-num" id="cd-mins">00</div><div class="countdown-unit-label">Mins</div></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-unit"><div class="countdown-num" id="cd-secs">00</div><div class="countdown-unit-label">Secs</div></div>
+      </div>
+    </div>
+
+    <div class="headline-block">
+      <div class="glow-line"></div>
+      <div class="headline">SPREAD THE WORD.<br><span class="accent">GET REWARDED.</span></div>
+      <div class="headline-desc">Make content. Reach people who don't know yet. The most views take the bag.</div>
+    </div>
+
+    <div class="prize-section">
+      <div class="section-label">— Prize Pool · $100 in $NIBBLE —</div>
+      <div class="prizes">
+        <div class="prize-card prize-2">
+          <div class="prize-rank">2nd Place</div>
+          <div class="prize-crown">🥈</div>
+          <div class="prize-amount">$25</div>
+          <div class="prize-currency">IN $NIBBLE</div>
+        </div>
+        <div class="prize-card prize-1">
+          <div class="hot-tag">👑 Top Prize</div>
+          <div class="prize-rank" style="margin-top:10px;">1st Place</div>
+          <div class="prize-crown">🔥</div>
+          <div class="prize-amount">$60</div>
+          <div class="prize-currency">IN $NIBBLE</div>
+        </div>
+        <div class="prize-card prize-3">
+          <div class="prize-rank">3rd Place</div>
+          <div class="prize-crown">🥉</div>
+          <div class="prize-amount">$15</div>
+          <div class="prize-currency">IN $NIBBLE</div>
+        </div>
+      </div>
+      <div class="winner-criteria">
+        <span>👁️</span>
+        <span><strong>Winner = Most Views</strong> — combined across all submitted content</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="how-section">
+      <div class="section-label">— How It Works —</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">01</div>
+          <div class="step-title">Post Your Content</div>
+          <div class="step-desc"><span class="step-highlight">Min. 3 TikTok videos</span> required. Push everywhere — X, Instagram, YouTube — every view counts.</div>
+        </div>
+        <div class="step">
+          <div class="step-number">02</div>
+          <div class="step-title">Tag & Use the Hashtag</div>
+          <div class="step-desc">Every video needs <span class="step-highlight">#NibbleNation</span> and must tag the official account. No tag = no entry.</div>
+        </div>
+        <div class="step">
+          <div class="step-number">03</div>
+          <div class="step-title">Submit Your Links</div>
+          <div class="step-desc">Hit <span class="step-highlight">Submit Entry</span> below. Drop all your links. Views get verified at deadline.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rules-strip">
+      <div class="rule-item"><span style="font-size:16px">👁️</span><span class="rule-text"><strong>Most views wins</strong> — all platforms combined</span></div>
+      <div class="rule-item"><span style="font-size:16px">📱</span><span class="rule-text"><strong>Min. 3 TikToks</strong> — all platforms welcome</span></div>
+      <div class="rule-item"><span style="font-size:16px">💎</span><span class="rule-text"><strong>Must hold $NIBBLE</strong> — show you believe it</span></div>
+      <div class="rule-item"><span style="font-size:16px">🚫</span><span class="rule-text"><strong>No false promises</strong> — no fake price claims</span></div>
+    </div>
+
+    <div class="cta-block">
+      <div class="cta-hashtag">#NibbleNation</div>
+      <button class="submit-btn" onclick="openModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+        Submit Your Entry
+      </button>
+      <div class="cta-sub">Only 3 winners · Most views takes $60 · Don't wait</div>
+    </div>
+
+    <div class="bottom-bar">
+      <div class="deadline-block">
+        <div class="deadline-label">Submission Deadline</div>
+        <div class="deadline-value">April 9, 2026 · 23:59</div>
+      </div>
+      <div class="spots-left">
+        <div class="spots-num">3</div>
+        <div class="spots-label">Winners Only</div>
+      </div>
+      <div class="social-handle">Community: <strong>NibbleNation</strong></div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="formState">
+      <div class="modal-logo">$NIBBLE</div>
+      <div class="modal-title">Submit Your Entry</div>
+      <div class="modal-sub">Drop all your links below. Views get verified on April 9th — most views across all platforms wins $60.</div>
+
+      <div class="form-group">
+        <label class="form-label">Your Username / Handle</label>
+        <input class="form-input" type="text" id="inputHandle" placeholder="@yourhandle" />
+      </div>
+      <div class="form-group">
+        <label class="form-label">Wallet Address</label>
+        <input class="form-input" type="text" id="inputWallet" placeholder="Your $NIBBLE wallet address" />
+        <div class="form-hint">Required to receive your prize in $NIBBLE</div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">TikTok Links <span style="color:rgba(255,80,80,0.7)">*</span></label>
+        <textarea class="form-textarea" id="inputTiktok" placeholder="Paste your TikTok video links here (min. 3)&#10;https://tiktok.com/...&#10;https://tiktok.com/...&#10;https://tiktok.com/..."></textarea>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Other Platform Links <span style="color:rgba(255,255,255,0.2);font-weight:400;text-transform:none;letter-spacing:0">optional</span></label>
+        <textarea class="form-textarea" id="inputOther" style="min-height:80px" placeholder="Instagram, X, YouTube, etc.&#10;Every extra view counts towards your total."></textarea>
+        <div class="form-hint">All platform views are counted combined</div>
+      </div>
+
+      <div class="modal-divider"></div>
+      <div class="error-msg" id="errorMsg"></div>
+      <button class="form-submit" id="submitBtn" onclick="submitForm()">🚀 Submit Entry to NibbleNation</button>
+    </div>
+
+    <div class="success-state" id="successState">
+      <div class="success-icon">🔥</div>
+      <div class="success-title">Entry Received!</div>
+      <div class="success-text">
+        Your submission is in. Views get counted on April 9th.<br><br>
+        <span style="color:rgba(255,200,80,0.7);font-weight:600">Keep pushing — more views = closer to $60.</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── COUNTDOWN ──
+  const deadline = new Date('2026-04-09T23:59:00').getTime();
+  function updateCountdown() {
+    const diff = deadline - Date.now();
+    if (diff <= 0) {
+      document.querySelector('.countdown-boxes').innerHTML = '<div class="countdown-ended">Campaign Ended</div>';
+      return;
+    }
+    document.getElementById('cd-days').textContent  = String(Math.floor(diff / 86400000)).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(Math.floor((diff % 3600000) / 60000)).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(Math.floor((diff % 60000) / 1000)).padStart(2,'0');
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ── MODAL ──
+  function openModal() { document.getElementById('modalOverlay').classList.add('active'); }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    setTimeout(() => {
+      document.getElementById('formState').style.display = 'block';
+      document.getElementById('successState').style.display = 'none';
+      document.getElementById('errorMsg').style.display = 'none';
+      document.getElementById('submitBtn').disabled = false;
+      document.getElementById('submitBtn').textContent = '🚀 Submit Entry to NibbleNation';
+    }, 300);
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('modalOverlay')) closeModal();
+  }
+
+  // ── SUBMIT TO TELEGRAM ──
+  // ⚠️ VERVANG DIT MET JE NIEUWE TOKEN NA HET REVOKEN
+  const BOT_TOKEN = '8558010286:AAHbaH7SxqR91gG9WqkrlCjltlmRNF7Xn2g';
+  const CHAT_ID   = '-1003709812102';
+
+  async function submitForm() {
+    const handle = document.getElementById('inputHandle').value.trim();
+    const wallet = document.getElementById('inputWallet').value.trim();
+    const tiktok = document.getElementById('inputTiktok').value.trim();
+    const other  = document.getElementById('inputOther').value.trim();
+    const errEl  = document.getElementById('errorMsg');
+    const btn    = document.getElementById('submitBtn');
+
+    errEl.style.display = 'none';
+
+    if (!handle || !wallet || !tiktok) {
+      errEl.textContent = 'Please fill in your handle, wallet address and TikTok links.';
+      errEl.style.display = 'block';
+      return;
+    }
+    const lines = tiktok.split('\n').filter(l => l.trim().length > 0);
+    if (lines.length < 3) {
+      errEl.textContent = 'You need at least 3 TikTok links to qualify.';
+      errEl.style.display = 'block';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Submitting…';
+
+    const now = new Date().toLocaleString('nl-NL', { timeZone: 'Europe/Amsterdam' });
+
+    const message =
+`🔥 <b>NEW $NIBBLE ENTRY</b>
+
+👤 <b>Handle:</b> ${handle}
+💎 <b>Wallet:</b> <code>${wallet}</code>
+
+📱 <b>TikTok Links:</b>
+${tiktok}
+
+🌐 <b>Other Links:</b>
+${other || '—'}
+
+🕐 <b>Submitted:</b> ${now}
+──────────────────`;
+
+    try {
+      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id:    CHAT_ID,
+          text:       message,
+          parse_mode: 'HTML'
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.ok) {
+        document.getElementById('formState').style.display = 'none';
+        document.getElementById('successState').style.display = 'block';
+      } else {
+        errEl.textContent = 'Submission failed: ' + (data.description || 'Unknown error');
+        errEl.style.display = 'block';
+        btn.disabled = false;
+        btn.textContent = '🚀 Submit Entry to NibbleNation';
+      }
+    } catch(e) {
+      errEl.textContent = 'Connection error. Check your internet and try again.';
+      errEl.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = '🚀 Submit Entry to NibbleNation';
+    }
+  }
+</script>
+</body>
+</html>
